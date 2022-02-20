@@ -8,7 +8,7 @@ class GetuserInitial extends GetUserState {}
 class GetuserLoading extends GetUserState {}
 
 class GetuserLoaded extends GetUserState {
-  final List<Results> data;
+  final UserModal data;
   GetuserLoaded(this.data);
 }
 

@@ -8,16 +8,13 @@ part 'getuser_state.dart';
 
 class GetuserBloc extends Bloc<GetuserEvent, GetUserState> {
   GetuserBloc() : super(GetuserInitial()) {
-    List<Results> listUserModel = [];
     on<GetuserEvent>((event, emit) async {
       emit(GetuserLoading());
       try {
         Response response = await Dio().get('https://randomuser.me/api/');
-        final List<dynamic> listOfJson = response.data;
-        listUserModel =
-            listOfJson.map<Results>((e) => Results.fromJson(e)).toList();
+        UserModal dataModel = UserModal.fromJson(response.data);
 
-        emit(GetuserLoaded(listUserModel));
+        emit(GetuserLoaded(dataModel));
       } catch (e) {
         emit(GetuserError(e.toString()));
       }

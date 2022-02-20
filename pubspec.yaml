@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_bloc: ^8.0.1
   dio: ^4.0.4
+  url_launcher: ^6.0.20
+  map_launcher: ^2.2.1+1
 
 dev_dependencies:
   flutter_test:
