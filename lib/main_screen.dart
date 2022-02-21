@@ -31,7 +31,12 @@ class _MyHomePageState extends State<MyHomePage> {
           listener: (context, state) {},
           builder: (context, state) {
             if (state is GetuserLoaded) {
-              return RandomUser(userModal: state.data);
+              return RandomUser(
+                userModal: state.data,
+                onPressed: () {
+                  userBloc.add(GetAllEvent());
+                },
+              );
             } else if (state is GetuserLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
@@ -52,20 +57,11 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class RandomUser extends StatelessWidget {
-  const RandomUser({Key? key, required this.userModal}) : super(key: key);
+  final Function() onPressed;
+  const RandomUser({Key? key, required this.userModal, required this.onPressed})
+      : super(key: key);
 
   final UserModal userModal;
-
-  @override
-  void launchURL() async {
-    const url =
-        'https://www.google.com/maps/place/Al+qi,+ADoqi,+Giza+Governorate/@33.0523046,38.2009323,17z/data=!3m1!4b1!4m5!3m4!1s0x1458413a996ec217:0x2411f6b62d93ccc!8m2!3d30.05237!4d31.2031598';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +73,7 @@ class RandomUser extends StatelessWidget {
           children: <Widget>[
             CircleAvatar(
               radius: 80,
-              backgroundColor: Color.fromARGB(255, 39, 37, 37),
+              backgroundColor: const Color.fromARGB(255, 39, 37, 37),
               child: CircleAvatar(
                 backgroundImage: userModal
                         .results!.first.picture!.medium!.isEmpty
@@ -121,8 +117,13 @@ class RandomUser extends StatelessWidget {
                 ),
                 ElevatedButton(
                   child: const Icon(Icons.iso, size: 50),
-                  onPressed: () {
-                    launchURL;
+                  onPressed: () async {
+                    String url = "http://www.google.com/";
+                    if (await canLaunch(url)) {
+                      await launch(url, forceSafariVC: false);
+                    } else {
+                      print("The action is not supported. (No Browser app)");
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     side: const BorderSide(
@@ -217,7 +218,7 @@ class RandomUser extends StatelessWidget {
               height: 30,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: onPressed,
               child: const Icon(Icons.cached, size: 60),
               style: ElevatedButton.styleFrom(
                   primary: const Color.fromARGB(255, 182, 253, 67),

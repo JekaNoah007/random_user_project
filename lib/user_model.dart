@@ -7,15 +7,15 @@ class UserModal {
     if (json['results'] != null) {
       results = <Results>[];
       json['results'].forEach((v) {
-        results!.add(new Results.fromJson(v));
+        results!.add(Results.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.results != null) {
-      data['results'] = this.results!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    if (results != null) {
+      data['results'] = results!.map((v) => v.toJson()).toList();
     }
 
     return data;
@@ -52,21 +52,19 @@ class Results {
 
   Results.fromJson(Map<String, dynamic> json) {
     gender = json['gender'];
-    name = json['name'] != null ? new Name.fromJson(json['name']) : null;
-    location = json['location'] != null
-        ? new Location.fromJson(json['location'])
-        : null;
+    name = json['name'] != null ? Name.fromJson(json['name']) : null;
+    location =
+        json['location'] != null ? Location.fromJson(json['location']) : null;
     email = json['email'];
-    login = json['login'] != null ? new Login.fromJson(json['login']) : null;
-    dob = json['dob'] != null ? new Dob.fromJson(json['dob']) : null;
-    registered = json['registered'] != null
-        ? new Dob.fromJson(json['registered'])
-        : null;
+    login = json['login'] != null ? Login.fromJson(json['login']) : null;
+    dob = json['dob'] != null ? Dob.fromJson(json['dob']) : null;
+    registered =
+        json['registered'] != null ? Dob.fromJson(json['registered']) : null;
     phone = json['phone'];
     cell = json['cell'];
-    id = json['id'] != null ? new Id.fromJson(json['id']) : null;
+    id = json['id'] != null ? Id.fromJson(json['id']) : null;
     picture =
-        json['picture'] != null ? new Picture.fromJson(json['picture']) : null;
+        json['picture'] != null ? Picture.fromJson(json['picture']) : null;
     nat = json['nat'];
   }
 
